@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import ChatList from "./components/ChatList";
 import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFoundPage";
+import Messages from "./components/Messages";
 
 
 function App() {
@@ -32,9 +33,8 @@ function App() {
                     <Route path={"/"} element={<Layout chatList={chatList}/>}>
                         <Route index path={"/"} element={<Home/>}/>
                         <Route path={"/profile"} element={<Profile/>}/>
-                        {chatList.map((chat) => {
-                            return <Route path={`/${chat.name}`} element={<ChatList/>} key={chat.id}/>
-                        })}
+                        <Route path={"/chats"} element={<ChatList/>}/>
+                        <Route path={"/chats/:id"} element={<Messages/>}/>
                     </Route>
                     <Route index path={"*"} element={<NotFoundPage/>}/>
                 </Routes>
