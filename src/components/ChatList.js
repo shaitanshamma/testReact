@@ -2,95 +2,65 @@ import React from 'react';
 import {Button, IconButton, List, ListItem, ListItemText, TextField} from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import CustomLink from "./CustomLink";
+import {useDispatch, useSelector} from "react-redux";
 
 const ChatList = () => {
 
-    const [messageList, setMessageList] = useState([]);
-    const [author, setAuthor] = useState('');
-    const [text, setText] = useState('');
-    const [robot, setRobot] = useState('');
-    const [chatList] = useState([
-        {
-            id: 1,
-            name: 'first_chat'
-        },
-        {
-            id: 2,
-            name: 'second_chat'
-        },
-        {
-            id: 3,
-            name: 'third_chat'
-        },
-    ]);
+    const [chatName, setChatName] = useState('');
+    const chatList = useSelector((state) => state.chatReducer.chatList)
+    const dispatch = useDispatch();
 
-    const nameHandler = (e) => {
-        setAuthor(e.target.value)
+    const chatNameHandler = (e) => {
+        setChatName(e.target.value)
     }
-    const textHandler = (e) => {
-        setText(e.target.value)
+
+    function deleteChat(id) {
+        dispatch({type: 'delete', payload: id})
     }
-    const messageHandler = (event) => {
+
+    const chatHandler = (event) => {
         event.preventDefault()
-        setMessageList(messageList => [...messageList, {
-            author: author,
-            text: text
-        }])
-        setAuthor('');
-        setText('');
+        let chat_id = chatList[chatList.length - 1].id + 1;
+        let chat = {id: chat_id, name: chatName}
+        dispatch({type: 'addChat', payload: chat})
+        setChatName('');
     }
-    useEffect(() => {
-        setTimeout(() => {
-            if (messageList.length) {
-                setRobot(messageList[messageList.length - 1].author + ' send some text')
-            }
-        }, 2000)
-    }, [messageList])
+
     return (
         <>
             <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
                 {chatList.map((item) => {
-                        return <CustomLink to={`${item.id}`} key={item.id}>
-                            <ListItem
-                                disableGutters
-                                secondaryAction={<IconButton
-                                    aria-label="comment"><CommentIcon/></IconButton>}><ListItemText
-                                primary={`${item.name}`}/>
-                            </ListItem>
-                        </CustomLink>
+                        return (
+                            <>
+                                <CustomLink to={`${item.id}`} key={item.id}>
+                                    <ListItem
+                                        disableGutters
+                                        secondaryAction={<IconButton
+                                            aria-label="comment"><CommentIcon/></IconButton>}><ListItemText
+                                        primary={`${item.name}`}/>
+                                    </ListItem>
+                                </CustomLink>
+                                <Button variant="contained" style={{backgroundColor: 'red'}}
+                                        onClick={() => deleteChat(item.id)}>Delete</Button>
+                            </>)
                     }
                 )}
             </List>
-            <form onSubmit={messageHandler}>
+            <form onSubmit={chatHandler}>
                 <TextField
                     id="outlined-name"
-                    label="Author"
-                    value={author}
+                    label="Chat name"
+                    value={chatName}
                     autoFocus
-                    onChange={nameHandler}
-                />
-                <TextField
-                    id="outlined-name"
-                    label="Text"
-                    value={text}
-                    onChange={textHandler}
+                    onChange={chatNameHandler}
                 />
                 <Button variant="contained" endIcon={<SendIcon/>} type={'submit'}
                         sx={{ml: '20px'}}>
                     Вжух!
                 </Button>
             </form>
-            <List>{messageList.map((message, idx) =>
-                <ListItem key={idx}>
-                    <ListItemText
-                        primary={`Автор - ${message.author}. Текст - ${message.text}`}
-                    />
-                </ListItem>)
-            }
-            </List>
-            <h4>{robot}</h4>
         </>
     );
 };
