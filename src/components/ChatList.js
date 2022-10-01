@@ -3,8 +3,9 @@ import {Button, IconButton, List, ListItem, ListItemText, TextField} from "@mui/
 import CommentIcon from "@mui/icons-material/Comment";
 import SendIcon from "@mui/icons-material/Send";
 import {useEffect, useState} from "react";
+import CustomLink from "./CustomLink";
 
-const ChatList = ({chats}) => {
+const ChatList = () => {
 
     const [messageList, setMessageList] = useState([]);
     const [author, setAuthor] = useState('');
@@ -51,13 +52,14 @@ const ChatList = ({chats}) => {
         <>
             <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
                 {chatList.map((item) => {
-                        return <ListItem
-                            key={item.id}
-                            disableGutters
-                            secondaryAction={<IconButton
-                                aria-label="comment"><CommentIcon/></IconButton>}><ListItemText
-                            primary={`${item.name}`}/>
-                        </ListItem>
+                        return <CustomLink to={`${item.id}`} key={item.id}>
+                            <ListItem
+                                disableGutters
+                                secondaryAction={<IconButton
+                                    aria-label="comment"><CommentIcon/></IconButton>}><ListItemText
+                                primary={`${item.name}`}/>
+                            </ListItem>
+                        </CustomLink>
                     }
                 )}
             </List>

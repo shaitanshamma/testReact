@@ -4,7 +4,7 @@ import {Link, useMatch} from "react-router-dom";
 const CustomLink = ({to, children}) => {
     const match = useMatch(to);
     return (
-        <Link to={to} style={{color: match ? 'red' : 'black'}}>
+        <Link to={to} style={{color: match ? 'red' : 'inherit'}}>
             {children}
         </Link>
     );
