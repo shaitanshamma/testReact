@@ -1,5 +1,4 @@
 import './App.css';
-import {useState} from "react";
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
 import Layout from "./components/Layout";
 import Profile from "./components/Profile";
@@ -7,25 +6,10 @@ import ChatList from "./components/ChatList";
 import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFoundPage";
 import Messages from "./components/Messages";
-
+import {useSelector} from "react-redux";
 
 function App() {
-
-    const [chatList] = useState([
-        {
-            id: 1,
-            name: 'first_chat'
-        },
-        {
-            id: 2,
-            name: 'second_chat'
-        },
-        {
-            id: 3,
-            name: 'third_chat'
-        },
-    ]);
-
+    const chatList = useSelector(state => state.chatReducer.chatList)
     return (
         <BrowserRouter>
             <div className="App">
