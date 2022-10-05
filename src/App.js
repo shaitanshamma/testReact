@@ -7,23 +7,26 @@ import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFoundPage";
 import Messages from "./components/Messages";
 import {useSelector} from "react-redux";
+import {persistor} from "./store/storeConfig";
+import React from "react";
+import {PersistGate} from "redux-persist/integration/react";
 
 function App() {
     const chatList = useSelector(state => state.chatReducer.chatList)
     return (
-        <BrowserRouter>
-            <div className="App">
-                <Routes>
-                    <Route path={"/"} element={<Layout chatList={chatList}/>}>
-                        <Route index path={"/"} element={<Home/>}/>
-                        <Route path={"/profile"} element={<Profile/>}/>
-                        <Route path={"/chats"} element={<ChatList/>}/>
-                        <Route path={"/chats/:id"} element={<Messages/>}/>
-                    </Route>
-                    <Route index path={"*"} element={<NotFoundPage/>}/>
-                </Routes>
-            </div>
-        </BrowserRouter>
+            <BrowserRouter>
+                <div className="App">
+                    <Routes>
+                        <Route path={"/"} element={<Layout chatList={chatList}/>}>
+                            <Route index path={"/"} element={<Home/>}/>
+                            <Route path={"/profile"} element={<Profile/>}/>
+                            <Route path={"/chats"} element={<ChatList/>}/>
+                            <Route path={"/chats/:id"} element={<Messages/>}/>
+                        </Route>
+                        <Route index path={"*"} element={<NotFoundPage/>}/>
+                    </Routes>
+                </div>
+            </BrowserRouter>
     );
 }
 
