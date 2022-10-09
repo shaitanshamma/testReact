@@ -17,6 +17,7 @@ const Header = () => {
             <CustomLink to={"/"}> Home </CustomLink>
             <CustomLink to={"/profile"}> Profile </CustomLink>
             <CustomLink to={"/chats"}> Chats </CustomLink>
+            <CustomLink to={"/users"}> Users </CustomLink>
             <Button variant="contained" style={{float: "right", marginTop: "7px"}} onClick={toggleTheme}>Переключить
                 тему</Button>
         </header>

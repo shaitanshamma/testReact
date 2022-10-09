@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 import {persistor} from "./store/storeConfig";
 import React from "react";
 import {PersistGate} from "redux-persist/integration/react";
+import Users from "./components/Users";
 
 function App() {
     const chatList = useSelector(state => state.chatReducer.chatList)
@@ -22,6 +23,7 @@ function App() {
                             <Route path={"/profile"} element={<Profile/>}/>
                             <Route path={"/chats"} element={<ChatList/>}/>
                             <Route path={"/chats/:id"} element={<Messages/>}/>
+                            <Route path={"/users"} element={<Users/>}/>
                         </Route>
                         <Route index path={"*"} element={<NotFoundPage/>}/>
                     </Routes>
