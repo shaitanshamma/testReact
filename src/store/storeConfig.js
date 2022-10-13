@@ -5,6 +5,8 @@ import storage from 'redux-persist/lib/storage';
 import {persistReducer, persistStore} from "redux-persist";
 import thunk from "redux-thunk";
 import {usersReducer} from "./reducers/usersReducer";
+import {registerReducer} from "./reducers/register";
+import {loginReducer} from "./reducers/login";
 
 
 
@@ -24,7 +26,9 @@ const persistConfig = {
 const reducers = combineReducers({
     messageReducer: messageListReducer,
     chatReducer: chatListReducer,
-    usersReducer:usersReducer
+    usersReducer:usersReducer,
+    registerReducer:registerReducer,
+    loginReducer:loginReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
