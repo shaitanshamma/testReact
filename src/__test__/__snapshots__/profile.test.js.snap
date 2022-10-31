@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component test matches snapshot with profile 1`] = `
+<div>
+  Profile page
+</div>
+`;
+
+exports[`reducer test matches snapshot with profile 1`] = `
+<div>
+  Profile page
+</div>
+`;
