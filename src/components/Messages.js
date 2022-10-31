@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Button, TextField} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import {useState} from "react";
+import {store} from "../store/storeConfig";
 
 
 function Messages() {
@@ -56,6 +57,7 @@ function Messages() {
                                 onClick={() => deleteMessage(message.message_id)}>Delete</Button>
                     </div>)
             })}
+            <h4></h4>
         </>
     );
 }

@@ -45,8 +45,10 @@ export function messageListReducer(state = defaultMessageList, action) {
         case 'addMessage':
             return {
                 ...state,
-                messageList: [...state.messageList, action.payload]
+                messageList: [...state.messageList, action.payload],
+                botMessage: action.payload.text,
             }
+
         default:
             return defaultMessageList
     }
