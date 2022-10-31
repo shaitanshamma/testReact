@@ -3,6 +3,8 @@ import {messageListReducer} from "./reducers/messageReducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import storage from 'redux-persist/lib/storage';
 import {persistReducer, persistStore} from "redux-persist";
+import thunk from "redux-thunk";
+import {usersReducer} from "./reducers/usersReducer";
 
 
 
@@ -21,11 +23,12 @@ const persistConfig = {
 
 const reducers = combineReducers({
     messageReducer: messageListReducer,
-    chatReducer: chatListReducer
+    chatReducer: chatListReducer,
+    usersReducer:usersReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-export const store = createStore(persistedReducer, applyMiddleware(robot))
+export const store = createStore(persistedReducer, applyMiddleware(thunk))
 
 export const persistor = persistStore(store);
